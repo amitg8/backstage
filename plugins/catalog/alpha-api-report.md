@@ -14,48 +14,8 @@ import { PortableSchema } from '@backstage/frontend-plugin-api';
 export const CatalogApi: Extension<{}>;
 
 // @alpha (undocumented)
-export const CatalogEntityKindFilter: Extension<{
-  initialFilter: string;
-}>;
-
-// @alpha (undocumented)
-export const CatalogEntityLifecycleFilter: Extension<never>;
-
-// @alpha (undocumented)
-export const CatalogEntityNamespaceFilter: Extension<never>;
-
-// @alpha (undocumented)
-export const CatalogEntityOwnerFilter: Extension<{
-  mode?: 'all' | 'owners-only' | undefined;
-}>;
-
-// @alpha (undocumented)
-export const CatalogEntityPage: Extension<{
-  path: string;
-}>;
-
-// @alpha (undocumented)
-export const CatalogEntityProcessingStatusFilter: Extension<never>;
-
-// @alpha (undocumented)
-export const CatalogEntityTagFilter: Extension<never>;
-
-// @alpha (undocumented)
-export const CatalogEntityTypeFilter: Extension<never>;
-
-// @alpha (undocumented)
-export const CatalogIndexPage: Extension<{
-  path: string;
-}>;
-
-// @alpha (undocumented)
 export const CatalogSearchResultListItemExtension: Extension<{
   noTrack?: boolean | undefined;
-}>;
-
-// @alpha (undocumented)
-export const CatalogUserListFilter: Extension<{
-  initialFilter: 'all' | 'owned' | 'starred';
 }>;
 
 // @alpha (undocumented)
