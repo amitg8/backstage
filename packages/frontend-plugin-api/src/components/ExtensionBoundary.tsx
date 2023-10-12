@@ -15,15 +15,43 @@
  */
 
 import React, { ReactNode } from 'react';
+import {
+  useApp,
+  PluginErrorBoundary,
+  AnalyticsContext,
+  RouteRef,
+} from '@backstage/core-plugin-api';
 import { BackstagePlugin } from '../wiring';
+import { toLegacyPlugin } from '@backstage/frontend-app-api';
+
+function hasTitle(routeRef?: any): routeRef is { title: string } {
+  return routeRef?.title;
+}
 
 /** @public */
 export interface ExtensionBoundaryProps {
-  children: ReactNode;
+  id: string;
   source?: BackstagePlugin;
+  routeRef?: RouteRef;
+  children: ReactNode;
 }
 
 /** @public */
 export function ExtensionBoundary(props: ExtensionBoundaryProps) {
-  return <>{props.children}</>;
+  const { id, source, routeRef, children } = props;
+
+  const app = useApp();
+  const plugin = source ? toLegacyPlugin(source) : undefined;
+
+  const attributes = {
+    extension: id,
+    pluginId: plugin?.getId(),
+    routeRef: hasTitle(routeRef) ? routeRef.title : undefined,
+  };
+
+  return (
+    <PluginErrorBoundary app={app} plugin={plugin}>
+      <AnalyticsContext attributes={attributes}>{children}</AnalyticsContext>
+    </PluginErrorBoundary>
+  );
 }
