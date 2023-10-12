@@ -17,6 +17,7 @@
 export {
   createApp,
   createExtensionTree,
+  toLegacyPlugin,
   type ExtensionTreeNode,
   type ExtensionTree,
 } from './createApp';

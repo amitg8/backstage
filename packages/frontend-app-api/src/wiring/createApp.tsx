@@ -346,6 +346,7 @@ const legacyPluginStore = getOrCreateGlobalSingleton(
   () => new WeakMap<BackstagePlugin, LegacyBackstagePlugin>(),
 );
 
+/** @public */
 export function toLegacyPlugin(plugin: BackstagePlugin): LegacyBackstagePlugin {
   let legacy = legacyPluginStore.get(plugin);
   if (legacy) {
