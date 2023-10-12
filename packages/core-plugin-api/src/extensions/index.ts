@@ -23,3 +23,8 @@ export {
 export type { ComponentLoader } from './extensions';
 export { useElementFilter } from './useElementFilter';
 export type { ElementCollection } from './useElementFilter';
+export {
+  PluginErrorBoundary,
+  type PluginErrorBoundaryProps,
+  type PluginErrorBoundaryState,
+} from './PluginErrorBoundary';

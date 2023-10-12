@@ -14,23 +14,38 @@
  * limitations under the License.
  */
 
-import React from 'react';
+import React, { PropsWithChildren, Component } from 'react';
 import { AppContext } from '../app/types';
 import { BackstagePlugin } from '../plugin';
 
-type Props = React.PropsWithChildren<{
+/**
+ * @public
+ * Props for {@link PluginErrorBoundary}.
+ */
+export type PluginErrorBoundaryProps = PropsWithChildren<{
   app: AppContext;
   plugin?: BackstagePlugin;
 }>;
 
-type State = { error: Error | undefined };
+/**
+ * @public
+ * State for {@link PluginErrorBoundary}.
+ */
+export type PluginErrorBoundaryState = { error: Error | undefined };
 
-export class PluginErrorBoundary extends React.Component<Props, State> {
+/**
+ * @public
+ * Custom error boundary for plugins.
+ */
+export class PluginErrorBoundary extends Component<
+  PluginErrorBoundaryProps,
+  PluginErrorBoundaryState
+> {
   static getDerivedStateFromError(error: Error) {
     return { error };
   }
 
-  state: State = { error: undefined };
+  state: PluginErrorBoundaryState = { error: undefined };
 
   handleErrorReset = () => {
     this.setState({ error: undefined });
