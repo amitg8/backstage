@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-import { RouteRef } from '@backstage/core-plugin-api';
-import React from 'react';
-import { ExtensionBoundary } from '../components';
+import React, { lazy, useEffect } from 'react';
+import {
+  RouteRef,
+  useAnalytics,
+  routableExtensionRenderedEvent,
+} from '@backstage/core-plugin-api';
+import { ExtensionBoundary, ExtensionSuspense } from '../components';
 import { createSchemaFromZod, PortableSchema } from '../schema';
 import {
   coreExtensionData,
@@ -54,6 +58,10 @@ export function createPageExtension<
     }) => Promise<JSX.Element>;
   },
 ): Extension<TConfig> {
+  const { id, routeRef } = options;
+
+  const attachTo = options.attachTo ?? { id: 'core.routes', input: 'routes' };
+
   const configSchema =
     'configSchema' in options
       ? options.configSchema
@@ -62,33 +70,49 @@ export function createPageExtension<
         ) as PortableSchema<TConfig>);
 
   return createExtension({
-    id: options.id,
-    attachTo: options.attachTo ?? { id: 'core.routes', input: 'routes' },
+    id,
+    attachTo,
+    configSchema,
+    inputs: options.inputs,
     disabled: options.disabled,
     output: {
       element: coreExtensionData.reactElement,
       path: coreExtensionData.routePath,
       routeRef: coreExtensionData.routeRef.optional(),
     },
-    inputs: options.inputs,
-    configSchema,
     factory({ bind, config, inputs, source }) {
-      const LazyComponent = React.lazy(() =>
+      const { path } = config;
+
+      const PageComponent = lazy(() =>
         options
           .loader({ config, inputs })
           .then(element => ({ default: () => element })),
       );
 
+      const ExtensionComponent = () => {
+        const analytics = useAnalytics();
+
+        // This event, never exposed to end-users of the analytics API,
+        // helps inform which extension metadata gets associated with a
+        // navigation event when the route navigated to is a gathered
+        // mountpoint.
+        useEffect(() => {
+          analytics.captureEvent(routableExtensionRenderedEvent, '');
+        }, [analytics]);
+
+        return <PageComponent />;
+      };
+
       bind({
-        path: config.path,
+        path,
+        routeRef,
         element: (
-          <ExtensionBoundary source={source}>
-            <React.Suspense fallback="...">
-              <LazyComponent />
-            </React.Suspense>
+          <ExtensionBoundary id={id} source={source} routeRef={routeRef}>
+            <ExtensionSuspense>
+              <ExtensionComponent />
+            </ExtensionSuspense>
           </ExtensionBoundary>
         ),
-        routeRef: options.routeRef,
       });
     },
   });
