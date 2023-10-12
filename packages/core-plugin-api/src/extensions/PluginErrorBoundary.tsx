@@ -20,7 +20,7 @@ import { BackstagePlugin } from '../plugin';
 
 type Props = React.PropsWithChildren<{
   app: AppContext;
-  plugin: BackstagePlugin;
+  plugin?: BackstagePlugin;
 }>;
 
 type State = { error: Error | undefined };
@@ -38,7 +38,7 @@ export class PluginErrorBoundary extends React.Component<Props, State> {
 
   render() {
     const { error } = this.state;
-    const { app, plugin } = this.props;
+    const { app, plugin, children } = this.props;
     const { ErrorBoundaryFallback } = app.getComponents();
 
     if (error) {
@@ -51,6 +51,6 @@ export class PluginErrorBoundary extends React.Component<Props, State> {
       );
     }
 
-    return this.props.children;
+    return children;
   }
 }
