@@ -270,6 +270,10 @@ export interface ExtensionBoundaryProps {
   // (undocumented)
   children: ReactNode;
   // (undocumented)
+  id: string;
+  // (undocumented)
+  routeRef?: RouteRef;
+  // (undocumented)
   source?: BackstagePlugin;
 }
 
@@ -342,6 +346,17 @@ export interface ExtensionOverrides {
 export interface ExtensionOverridesOptions {
   // (undocumented)
   extensions: Extension<unknown>[];
+}
+
+// @public (undocumented)
+export function ExtensionSuspense(
+  props: ExtensionSuspenseProps,
+): React_2.JSX.Element;
+
+// @public (undocumented)
+export interface ExtensionSuspenseProps {
+  // (undocumented)
+  children: ReactNode;
 }
 
 // @public (undocumented)
