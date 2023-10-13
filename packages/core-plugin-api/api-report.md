@@ -6,6 +6,7 @@
 /// <reference types="react" />
 
 import { BackstagePlugin as BackstagePlugin_2 } from '@backstage/core-plugin-api';
+import { Component } from 'react';
 import { ComponentType } from 'react';
 import { Config } from '@backstage/config';
 import { IconComponent as IconComponent_2 } from '@backstage/core-plugin-api';
@@ -654,6 +655,34 @@ export type PluginConfig<
 };
 
 // @public
+export class PluginErrorBoundary extends Component<
+  PluginErrorBoundaryProps,
+  PluginErrorBoundaryState
+> {
+  // (undocumented)
+  static getDerivedStateFromError(error: Error): {
+    error: Error;
+  };
+  // (undocumented)
+  handleErrorReset: () => void;
+  // (undocumented)
+  render(): React_2.ReactNode;
+  // (undocumented)
+  state: PluginErrorBoundaryState;
+}
+
+// @public
+export type PluginErrorBoundaryProps = PropsWithChildren<{
+  app: AppContext;
+  plugin?: BackstagePlugin;
+}>;
+
+// @public
+export type PluginErrorBoundaryState = {
+  error: Error | undefined;
+};
+
+// @public
 export type PluginFeatureFlagConfig = {
   name: string;
 };
@@ -669,6 +698,9 @@ export type ProfileInfo = {
 export type ProfileInfoApi = {
   getProfile(options?: AuthRequestOptions): Promise<ProfileInfo | undefined>;
 };
+
+// @public
+export const routableExtensionRenderedEvent = '_ROUTABLE-EXTENSION-RENDERED';
 
 // @public
 export type RouteFunc<Params extends AnyParams> = (
