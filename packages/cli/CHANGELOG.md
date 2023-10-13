@@ -1,5 +1,23 @@
 # @backstage/cli
 
+## 0.23.0-next.3
+
+### Patch Changes
+
+- 4f16e60e6d: Request slightly smaller pages of data from GitHub
+- 1ea20b0be5: Updated dependency `@typescript-eslint/eslint-plugin` to `6.7.5`.
+- Updated dependencies
+  - @backstage/catalog-model@1.4.3-next.0
+  - @backstage/cli-common@0.1.13-next.0
+  - @backstage/cli-node@0.1.5-next.1
+  - @backstage/config@1.1.1-next.0
+  - @backstage/config-loader@1.5.1-next.1
+  - @backstage/errors@1.2.3-next.0
+  - @backstage/eslint-plugin@0.1.3
+  - @backstage/integration@1.7.1-next.1
+  - @backstage/release-manifests@0.0.10
+  - @backstage/types@1.1.1
+
 ## 0.23.0-next.2
 
 ### Minor Changes
