@@ -5,6 +5,7 @@
 ```ts
 import { AppRouteBinder } from '@backstage/core-app-api';
 import { BackstagePlugin } from '@backstage/frontend-plugin-api';
+import { BackstagePlugin as BackstagePlugin_2 } from '@backstage/core-plugin-api';
 import { Config } from '@backstage/config';
 import { ConfigApi } from '@backstage/core-plugin-api';
 import { ExtensionDataRef } from '@backstage/frontend-plugin-api';
@@ -45,4 +46,7 @@ export interface ExtensionTreeNode {
   // (undocumented)
   id: string;
 }
+
+// @public (undocumented)
+export function toLegacyPlugin(plugin: BackstagePlugin): BackstagePlugin_2;
 ```
