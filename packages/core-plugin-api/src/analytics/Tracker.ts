@@ -60,7 +60,8 @@ const globalEvents = getOrCreateGlobalSingleton<TempGlobalEvents>(
 );
 
 /**
- * Internal-only event representing when a routable extension is rendered.
+ * @public
+ * Event representing when a routable extension is rendered.
  */
 export const routableExtensionRenderedEvent = '_ROUTABLE-EXTENSION-RENDERED';
 
